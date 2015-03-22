@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+From now on, I have a plan. One day, one algorithm question. 
+> Flies are also meat.
+
+#First one
+
+Evaluate the value of an arithmetic expression in Reverse Polish Notation. Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+
+##Some examples:
+
+["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
+
+###<font color="red"; size="5"; >algorithm idea:</font>
+
+<font size="4"; color="black"><b>*Use the stack data structure. Traverse the string array from the first to the end, if the element is operand, then push it into the stack; if the element is operator, then pop out two elements from the stack and compute them with the operator, the result will also push into the stack. At last, the only element of the stack is the value of the reverse polish notation*</b></font>
+
+##<font color="blue">The following is the source code:</font>
+~~~~{java}
+/**
+ * Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+ * Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+ * Some examples:
+ * ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+ * ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
+ * */
+package sort;
+
+public class ComputeReversePolishNotation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] s = { "2", "1", "+", "3", "*" };
+		String[] s1 = { "4", "13", "5", "/", "+" };
+		System.out.println(new ComputeReversePolishNotation()
+				.computeReversePolishNotation(s));
+		System.out.println(new ComputeReversePolishNotation()
+				.computeReversePolishNotation(s1));
+
+	}
+
+	/**
+	 * Compute reverse polish notation
+	 * 
+	 * @param stack
+	 *            s stack which store the reverse polish notation
+	 * @return result
+	 * */
+	public int computeReversePolishNotation(String[] s) {
+		if (s == null) {
+			return 0;
+		}
+
+		MyStack myStack = new MyStack(null);
+
+		for (int i = 0; i < s.length; i++) {
+			if (isOperator(s[i])) {
+				String operand1 = myStack.pop();
+				String operand2 = myStack.pop();
+				int temp = computeTwoNumbersWithAOperator(operand2, operand1,
+						s[i]);// reverse the operand
+				myStack.push(String.valueOf(temp));
+			} else {
+				myStack.push(s[i]);
+			}
+		}
+
+		if (myStack.isEmpty()) {
+			return 0;
+		} else {
+			return Integer.valueOf(myStack.pop());// it should be only one
+													// element in the stack
+		}
+
+	}
+
+	/**
+	 * judge whether the string is a operator
+	 * */
+	private boolean isOperator(String s) {
+		if ("+".equals(s) || "-".equals(s) || "*".equals(s) || "/".equals(s)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * simple compute
+	 * */
+	private int computeTwoNumbersWithAOperator(String operand1,
+			String operand2, String operator) {
+		int op1 = Integer.valueOf(operand1);
+		int op2 = Integer.valueOf(operand2);
+
+		if ("+".equals(operator)) {
+			return (op1 + op2);
+		} else if ("-".equals(operator)) {
+			return (op1 - op2);
+		} else if ("*".equals(operator)) {
+			return (op1 * op2);
+		} else if ("/".equals(operator)) {
+			return (op1 / op2);
+		} else {
+			return 0;
+		}
+
+	}
+
+}
+
+
+
+
+package sort;
+
+import java.util.ArrayList;
+
+public class MyStack {
+	
+	private ArrayList<String> list = new ArrayList<String>();
+	
+	/**
+	 * constructor
+	 * */
+	public MyStack(String[] s) {
+		if (s == null) {
+			return;
+		}
+		
+		for(int i = 0; i < s.length; i++) {
+			list.add(s[i]);
+		}
+	}
+	
+	/**
+	 * push
+	 * */
+	public void push(String s) {
+		list.add(s);
+	}
+	
+	/**
+	 * pop
+	 * */
+	public String pop() {
+		if (isEmpty()) {
+			return null;
+		}
+		
+		String temp = list.get(list.size()-1);
+		list.remove(list.size()-1);
+		return temp;
+	}
+	
+	/**
+	 * judge whether the stack is empty or not
+	 * */
+	public boolean isEmpty() {
+		if (list.size() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
+	
+}
+
+~~~~
+
+<font color="red"><i><u>**All content is original, and source should by indicated when been reprinted.**</i></u></font>
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>From now on, I have a plan. One day, one algorithm question. </p>
+
+<blockquote>
+  <p>Flies are also meat.</p>
+</blockquote>
+
+<h1 id="firstone">First one</h1>
+
+<p>Evaluate the value of an arithmetic expression in Reverse Polish Notation. Valid operators are +, -, *, /. Each operand may be an integer or another expression.</p>
+
+<h2 id="someexamples">Some examples:</h2>
+
+<p>["2", "1", "+", "3", "*"] -&gt; ((2 + 1) * 3) -&gt; 9
+["4", "13", "5", "/", "+"] -&gt; (4 + (13 / 5)) -&gt; 6</p>
+
+<h3 id="fontcolorredsize5algorithmideafont"><font color="red" ;="" size="5">algorithm idea:</font></h3>
+
+<p><font size="4" ;="" color="black"><b><em>Use the stack data structure. Traverse the string array from the first to the end, if the element is operand, then push it into the stack; if the element is operator, then pop out two elements from the stack and compute them with the operator, the result will also push into the stack. At last, the only element of the stack is the value of the reverse polish notation</em></b></font></p>
+
+<h2 id="fontcolorbluethefollowingisthesourcecodefont"><font color="blue">The following is the source code:</font></h2>
+
+<pre class=" language-java"><code class=" language-java"><span class="token comment" spellcheck="true">/**
+ * Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+ * Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+ * Some examples:
+ * ["2", "1", "+", "3", "*"] -&gt; ((2 + 1) * 3) -&gt; 9
+ * ["4", "13", "5", "/", "+"] -&gt; (4 + (13 / 5)) -&gt; 6
+ * */</span>
+<span class="token keyword">package</span> sort<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ComputeReversePolishNotation</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment" spellcheck="true"> // TODO Auto-generated method stub
+</span>        String<span class="token punctuation">[</span><span class="token punctuation">]</span> s <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">"2"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"+"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"*"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> s1 <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"13"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token string">"+"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">ComputeReversePolishNotation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">computeReversePolishNotation<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">ComputeReversePolishNotation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">computeReversePolishNotation<span class="token punctuation">(</span></span>s1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Compute reverse polish notation
+     * 
+     * @param stack
+     *            s stack which store the reverse polish notation
+     * @return result
+     * */</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">computeReversePolishNotation<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        MyStack myStack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyStack</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isOperator<span class="token punctuation">(</span></span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                String operand1 <span class="token operator">=</span> myStack<span class="token punctuation">.</span><span class="token function">pop<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                String operand2 <span class="token operator">=</span> myStack<span class="token punctuation">.</span><span class="token function">pop<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> temp <span class="token operator">=</span> <span class="token function">computeTwoNumbersWithAOperator<span class="token punctuation">(</span></span>operand2<span class="token punctuation">,</span> operand1<span class="token punctuation">,</span>
+                        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// reverse the operand
+</span>                myStack<span class="token punctuation">.</span><span class="token function">push<span class="token punctuation">(</span></span>String<span class="token punctuation">.</span><span class="token function">valueOf<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                myStack<span class="token punctuation">.</span><span class="token function">push<span class="token punctuation">(</span></span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>myStack<span class="token punctuation">.</span><span class="token function">isEmpty<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf<span class="token punctuation">(</span></span>myStack<span class="token punctuation">.</span><span class="token function">pop<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// it should be only one
+</span>                                                   <span class="token comment" spellcheck="true"> // element in the stack
+</span>        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * judge whether the string is a operator
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isOperator<span class="token punctuation">(</span></span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"-"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"*"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"/"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * simple compute
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">computeTwoNumbersWithAOperator<span class="token punctuation">(</span></span>String operand1<span class="token punctuation">,</span>
+            String operand2<span class="token punctuation">,</span> String operator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> op1 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf<span class="token punctuation">(</span></span>operand1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> op2 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf<span class="token punctuation">(</span></span>operand2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>operator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>op1 <span class="token operator">+</span> op2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>operator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>op1 <span class="token operator">-</span> op2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>operator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>op1 <span class="token operator">*</span> op2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>operator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>op1 <span class="token operator">/</span> op2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+
+
+
+<span class="token keyword">package</span> sort<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyStack</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> ArrayList<span class="token operator">&lt;</span>String&gt; list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * constructor
+     * */</span>
+    <span class="token keyword">public</span> <span class="token function">MyStack<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            list<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * push
+     * */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">push<span class="token punctuation">(</span></span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        list<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * pop
+     * */</span>
+    <span class="token keyword">public</span> String <span class="token function">pop<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isEmpty<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        String temp <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>list<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token number">-1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">remove<span class="token punctuation">(</span></span>list<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token number">-1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * judge whether the stack is empty or not
+     * */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isEmpty<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">==</span><span class="token number"> 0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+<p><font color="red"><i><u><strong>All content is original, and source should by indicated when been reprinted.</strong></u></i></font></p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "reversePolishNotation.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
