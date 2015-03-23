@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+Feel a little tired now. All right, let's start the topic. This time the question is "finding the longest palindromic substring".
+
+Algorithm idea: brute force, exhausting analysis. This is the worst algorithm with high time complexity.
+
+The following is the code:
+~~~~{java}
+
+/**
+ * Finding the longest palindromic substring
+ * For example: abcba 就是回文
+ * */
+package longestPalindromicSubstring;
+
+public class LongestPalindromicSubstring {
+
+	public static void main(String[] args) {
+		String string = "abadf";
+		System.out.println(new LongestPalindromicSubstring().getLongestPalindromicSubstring(string));
+		System.out.println(new LongestPalindromicSubstring().reverseString("ab"));
+		System.out.println(new LongestPalindromicSubstring().isPalindromicString("aba"));
+		System.out.println("ab".substring(0, 1));
+	}
+	
+	/**
+	 * First method, assume that every substring is a palindromic string and check it one by one.
+	 * This is exhausting analysis.
+	 * @param string
+	 * @return longestPalindromicSubstring
+	 * */
+	private String getLongestPalindromicSubstring(String string) {
+		boolean[] flag = new boolean[string.length()];//indicate if substring with this length is a palindrom string
+		int[] index = new int[string.length()];
+		for (int i = 0; i < string.length(); i++) {
+			for (int j = 0; j < string.length() - i; j++) {
+				if (isPalindromicString(string.substring(j, j + i + 1))) {
+					flag[i] = true;
+					index[i] = j;
+					break;
+				}
+			}
+		}
+		
+		String longestPalindromicSubstring = null;
+		for (int i = flag.length - 1; i >= 0; i--) {
+			if (flag[i]) {
+				longestPalindromicSubstring = string.substring(index[i], index[i] + i + 1);
+				break;
+			}
+		}
+		
+		return longestPalindromicSubstring;
+	}
+	
+	/**
+	 * Judge whether the string is palindromic string
+	 * @param string
+	 * @return true/false
+	 * */
+	private boolean isPalindromicString(String string) {
+		return (string.equals(reverseString(string)) ? true:false);
+	}
+	
+	/**
+	 * Reverse the string.
+	 * */
+	private String reverseString(String string) {
+		char[] temp = new char[string.length()];
+		
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = string.charAt(temp.length - i - 1);
+		}
+		
+		String reverseString = "";
+		for(char c:temp) {
+			reverseString += c;
+		}
+		return reverseString;
+	}
+	
+}
+
+~~~~
+
+To be continued...
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Feel a little tired now. All right, let's start the topic. This time the question is "finding the longest palindromic substring".</p>
+
+<p>Algorithm idea: brute force, exhausting analysis. This is the worst algorithm with high time complexity.</p>
+
+<p>The following is the code:</p>
+
+<pre class=" language-java"><code class=" language-java">
+<span class="token comment" spellcheck="true">/**
+ * Finding the longest palindromic substring
+ * For example: abcba 就是回文
+ * */</span>
+<span class="token keyword">package</span> longestPalindromicSubstring<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LongestPalindromicSubstring</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String string <span class="token operator">=</span> <span class="token string">"abadf"</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">LongestPalindromicSubstring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getLongestPalindromicSubstring<span class="token punctuation">(</span></span>string<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">LongestPalindromicSubstring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverseString<span class="token punctuation">(</span></span><span class="token string">"ab"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">LongestPalindromicSubstring</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isPalindromicString<span class="token punctuation">(</span></span><span class="token string">"aba"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token string">"ab"</span><span class="token punctuation">.</span><span class="token function">substring<span class="token punctuation">(</span></span>0<span class="token punctuation">,</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * First method, assume that every substring is a palindromic string and check it one by one.
+     * This is exhausting analysis.
+     * @param string
+     * @return longestPalindromicSubstring
+     * */</span>
+    <span class="token keyword">private</span> String <span class="token function">getLongestPalindromicSubstring<span class="token punctuation">(</span></span>String string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> flag <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span>string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token comment" spellcheck="true">;//indicate if substring with this length is a palindrom string
+</span>        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> index <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">-</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isPalindromicString<span class="token punctuation">(</span></span>string<span class="token punctuation">.</span><span class="token function">substring<span class="token punctuation">(</span></span>j<span class="token punctuation">,</span> j <span class="token operator">+</span> i <span class="token operator">+</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                    index<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        String longestPalindromicSubstring <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> flag<span class="token punctuation">.</span>length <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">;</span> i &gt;<span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                longestPalindromicSubstring <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">substring<span class="token punctuation">(</span></span>index<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> i <span class="token operator">+</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> longestPalindromicSubstring<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Judge whether the string is palindromic string
+     * @param string
+     * @return true/false
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isPalindromicString<span class="token punctuation">(</span></span>String string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span><span class="token function">reverseString<span class="token punctuation">(</span></span>string<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token boolean">true</span><span class="token operator">:</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Reverse the string.
+     * */</span>
+    <span class="token keyword">private</span> String <span class="token function">reverseString<span class="token punctuation">(</span></span>String string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span>string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> temp<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">charAt<span class="token punctuation">(</span></span>temp<span class="token punctuation">.</span>length <span class="token operator">-</span> i <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        String reverseString <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">char</span> c<span class="token operator">:</span>temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            reverseString <span class="token operator">+</span><span class="token operator">=</span> c<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> reverseString<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+<p>To be continued...</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "algorithm_palindromic.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
