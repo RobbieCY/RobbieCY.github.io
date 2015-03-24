@@ -108,7 +108,49 @@ public class LongestPalindromicSubstring {
 
 ~~~~
 
-To be continued...
+<font size="5"; color="blue">To be continued...</font>
+
+===================<font color="yellow">grand separator line</font>===================
+
+<font size="5">This</font> is the second day, I tried to find a better way. <br>
+
+First of all, review the history. Let's analysis the above algorithm. Look at the method:
+~~~~{java}
+/**
+	 * Reverse the string.
+	 * */
+	private String reverseString(String string) {
+		char[] temp = new char[string.length()];
+		
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = string.charAt(temp.length - i - 1);
+		}
+		
+		String reverseString = "";
+		for(char c:temp) {
+			reverseString += c;
+		}
+		return reverseString;
+	}
+~~~~
+
+There are two things wrong with this one. <font color="red">Firstly</font>, use two much operator "+" to link two strings and this will cause JVM create two many string object. <font color="red">Secondly</font>, this method won't work in some cases because of the existence of [surrogate pair](http://stackoverflow.com/questions/5903008/what-is-a-surrogate-pair-in-java).
+
+The best way to reverse a string is:
+~~~~{java}
+new StringBuilder("abcd").reverse().toString();
+~~~~
+
+<font size="5"; color="blue">To be continued...</font>
+
+===================<font color="yellow">grand separator line</font>===================
+
+
+
+
+
+
+
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
@@ -196,7 +238,42 @@ To be continued...
 
 </code></pre>
 
-<p>To be continued...</p>
+<p><font size="5" ;="" color="blue">To be continued...</font></p>
+
+<p>===================<font color="yellow">grand separator line</font>===================</p>
+
+<p><font size="5">This</font> is the second day, I tried to find a better way. <br></p>
+
+<p>First of all, review the history. Let's analysis the above algorithm. Look at the method:</p>
+
+<pre class=" language-java"><code class=" language-java"><span class="token comment" spellcheck="true">/**
+     * Reverse the string.
+     * */</span>
+    <span class="token keyword">private</span> String <span class="token function">reverseString<span class="token punctuation">(</span></span>String string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">char</span><span class="token punctuation">[</span>string<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> temp<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">charAt<span class="token punctuation">(</span></span>temp<span class="token punctuation">.</span>length <span class="token operator">-</span> i <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        String reverseString <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">char</span> c<span class="token operator">:</span>temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            reverseString <span class="token operator">+</span><span class="token operator">=</span> c<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> reverseString<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+
+<p>There are two things wrong with this one. <font color="red">Firstly</font>, use two much operator "+" to link two strings and this will cause JVM create two many string object. <font color="red">Secondly</font>, this method won't work in some cases because of the existence of <a href="http://stackoverflow.com/questions/5903008/what-is-a-surrogate-pair-in-java">surrogate pair</a>.</p>
+
+<p>The best way to reverse a string is:</p>
+
+<pre class=" language-java"><code class=" language-java"><span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token string">"abcd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
+<p><font size="5" ;="" color="blue">To be continued...</font></p>
+
+<p>===================<font color="yellow">grand separator line</font>===================</p>
 <!-- content end -->
 </div>
 <br>
