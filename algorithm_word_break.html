@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+Today the question, without further ado, is determining if a string can be segmented into space-separated sequence of one or more dictionary words.
+
+<font size = "5", color = "blue">For example:</font> Given s = "leetcode", dict = ["leet", "cod", "le", "et", "co", "de"]; Return true because "leetcode" can be segmented as "le et co de" or "leet co de".
+
+<font size = "5", color = "red">Algorithm idea:</font>
+<font size = "4", color = "red">
+<br><b>First way</b>: brute force, exhausting analysis. Find out all possible combination of strings in the dictionary and check whether it is equivalent with string s one by one. This is a stupid and slow method, however, it is still a solution. Time complexity: O(n!).
+<br><b>Another way</b>: recursion. First step is to find out all strings in the dictionary in which are prefix of string s. (For this example, we can find two strings in the dictionary, they are "leet" and "le".) Then the problem can be transformed into two small-scale problems, one is function("code", dict), the other one is function("etcode", dict). The result is (function("code", dict) || function("etcode", dict)). Just follow this way, scale down the problem and finally we can get the answer easily.
+</font>  
+
+<font size = "5", color = "blue">Code talks:</font> 
+~~~~{java}
+/**
+ * Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+ * For example, given
+ * s = "leetcode",
+ * dict = ["leet", "code"].
+ * Return true because "leetcode" can be segmented as "leet code".
+ * */
+package word_break;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class WordBreak {
+
+	public static void main(String[] args) {
+		String s = "leetcode";
+		String[] dict = {"leet", "cod", "le", "et", "co", "de"};
+		System.out.println(judgeWhetherAWordCanBeBroken(s, dict));
+	}
+
+	/**
+	 * Given a string and a dictionary of words dict, determine if s can be
+	 * segmented into a space-separated sequence of one or more dictionary
+	 * words. Idea: Recursion
+	 * 
+	 * @param s
+	 * @param dict
+	 *            []
+	 * @return true or false
+	 * */
+	private static boolean judgeWhetherAWordCanBeBroken(String s, String[] dict) {
+		/* exception treatment */
+		if (null == s || null == dict) {
+			return false;
+		}
+
+		/* exit */
+		for (String temp : dict) {
+			if (s.equals(temp)) {
+				return true;
+			}
+		}
+
+		/*get matchedStrings*/
+		List<String> matchedStrings = new ArrayList<String>();
+		for (String temp : dict) {
+			if (s.startsWith(temp)) {
+				matchedStrings.add(temp);
+			}
+		}
+		
+		boolean result = false;
+		/*traverse the matchedStrings, and create a expression*/
+		for (String temp : matchedStrings) {
+			result = result || judgeWhetherAWordCanBeBroken(s.substring(temp.length(), s.length()), dict);
+		}
+		return result;
+	}
+
+}
+
+~~~~
+
+Note: the method boolean startWith(String a), a must not be a null value. You can get the answer from the source code of String api.
+
+<font color = "orange">Good night, Robbie. ^ ^
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Today the question, without further ado, is determining if a string can be segmented into space-separated sequence of one or more dictionary words.</p>
+
+<p><font size="5" ,="" color="blue">For example:</font> Given s = "leetcode", dict = ["leet", "cod", "le", "et", "co", "de"]; Return true because "leetcode" can be segmented as "le et co de" or "leet co de".</p>
+
+<p><font size="5" ,="" color="red">Algorithm idea:</font>
+<font size="4" ,="" color="red">
+<br><b>First way</b>: brute force, exhausting analysis. Find out all possible combination of strings in the dictionary and check whether it is equivalent with string s one by one. This is a stupid and slow method, however, it is still a solution. Time complexity: O(n!).
+<br><b>Another way</b>: recursion. First step is to find out all strings in the dictionary in which are prefix of string s. (For this example, we can find two strings in the dictionary, they are "leet" and "le".) Then the problem can be transformed into two small-scale problems, one is function("code", dict), the other one is function("etcode", dict). The result is (function("code", dict) || function("etcode", dict)). Just follow this way, scale down the problem and finally we can get the answer easily.
+</font>  </p>
+
+<p><font size="5" ,="" color="blue">Code talks:</font> </p>
+
+<pre class=" language-java"><code class=" language-java"><span class="token comment" spellcheck="true">/**
+ * Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+ * For example, given
+ * s = "leetcode",
+ * dict = ["leet", "code"].
+ * Return true because "leetcode" can be segmented as "leet code".
+ * */</span>
+<span class="token keyword">package</span> word_break<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WordBreak</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String s <span class="token operator">=</span> <span class="token string">"leetcode"</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"leet"</span><span class="token punctuation">,</span> <span class="token string">"cod"</span><span class="token punctuation">,</span> <span class="token string">"le"</span><span class="token punctuation">,</span> <span class="token string">"et"</span><span class="token punctuation">,</span> <span class="token string">"co"</span><span class="token punctuation">,</span> <span class="token string">"de"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token function">judgeWhetherAWordCanBeBroken<span class="token punctuation">(</span></span>s<span class="token punctuation">,</span> dict<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Given a string and a dictionary of words dict, determine if s can be
+     * segmented into a space-separated sequence of one or more dictionary
+     * words. Idea: Recursion
+     * 
+     * @param s
+     * @param dict
+     *            []
+     * @return true or false
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">judgeWhetherAWordCanBeBroken<span class="token punctuation">(</span></span>String s<span class="token punctuation">,</span> String<span class="token punctuation">[</span><span class="token punctuation">]</span> dict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/* exception treatment */</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> s <span class="token operator">||</span> null <span class="token operator">==</span> dict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/* exit */</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String temp <span class="token operator">:</span> dict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/*get matchedStrings*/</span>
+        List<span class="token operator">&lt;</span>String&gt; matchedStrings <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String temp <span class="token operator">:</span> dict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">startsWith<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                matchedStrings<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">boolean</span> result <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/*traverse the matchedStrings, and create a expression*/</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String temp <span class="token operator">:</span> matchedStrings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">=</span> result <span class="token operator">||</span> <span class="token function">judgeWhetherAWordCanBeBroken<span class="token punctuation">(</span></span>s<span class="token punctuation">.</span><span class="token function">substring<span class="token punctuation">(</span></span>temp<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dict<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+<p>Note: the method boolean startWith(String a), a must not be a null value. You can get the answer from the source code of String api.</p>
+
+<p><font color="orange">Good night, Robbie. ^ ^</font></p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "algorithm_word_break.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
