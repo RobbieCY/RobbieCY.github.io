@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+[Word Break](http://robbiecy.github.io/algorithm_word_break.html), to be continued....
+
+<span style = "display:block; text-align:justify">If we just think about implementation with java code, and using pattern matching may be the simplest method. In this way, we can solve this problem by building a DFA in O(2^m) and executing it in O(n). See [here](https://vpn2.seu.edu.cn/2012/12/leetcode-solution-word-break/,DanaInfo=www.programcreek.com+);
+
+<font color="blue">Talk is cheap, show the code:</font>
+
+~~~~{java}
+
+public static void main(String[] args) {
+		HashSet<String> dict = new HashSet<String>();// set has no duplicate
+														// elements.
+		dict.add("go");
+		dict.add("goal");
+		dict.add("goals");
+		dict.add("special");
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String s : dict) {
+			sb.append(s + "|");// StringBuider is better in this case.(x|y means
+								// matching x or y.)
+		}
+
+		String pattern = sb.toString().substring(0, sb.length() - 1);
+		pattern = "(" + pattern + ")*";// (pattern)* means matching this pattern
+										// zero or more times
+		Pattern p = Pattern.compile(pattern);// Pattern class has no public
+												// constructor and we must use
+												// its public static compilation
+												// method.
+		Matcher m = p.matcher("goalspecial");// Just like pattern, and we can
+												// get matcher instance by
+												// invoking Pattern object's
+												// matcher() method.
+
+		if (m.matches()) {// try to match the whole area.
+			System.out.println("match");
+		}
+	}
+~~~~
+
+To sum up, class Pattern and Matcher seem very useful to deal with strings. Extra time should be spent on the source code and also need to try applying it on usual practice.
+
+<font size="5", color="blue">From [leetcode](https://vpn2.seu.edu.cn/2012/12/leetcode-solution-word-break/,DanaInfo=www.programcreek.com+).</font>
+
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p><a href="http://robbiecy.github.io/algorithm_word_break.html">Word Break</a>, to be continued....</p>
+
+<p><span style="display:block; text-align:justify">If we just think about implementation with java code, and using pattern matching may be the simplest method. In this way, we can solve this problem by building a DFA in O(2^m) and executing it in O(n). See <a href="https://vpn2.seu.edu.cn/2012/12/leetcode-solution-word-break/,DanaInfo=www.programcreek.com+">here</a>;</span></p>
+
+<p><font color="blue">Talk is cheap, show the code:</font></p>
+
+<pre class=" language-java"><code class=" language-java">
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        HashSet<span class="token operator">&lt;</span>String&gt; dict <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>String&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// set has no duplicate
+</span>                                                       <span class="token comment" spellcheck="true"> // elements.
+</span>        dict<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token string">"go"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dict<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token string">"goal"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dict<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token string">"goals"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dict<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token string">"special"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String s <span class="token operator">:</span> dict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sb<span class="token punctuation">.</span><span class="token function">append<span class="token punctuation">(</span></span>s <span class="token operator">+</span> <span class="token string">"|"</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// StringBuider is better in this case.(x|y means
+</span>                               <span class="token comment" spellcheck="true"> // matching x or y.)
+</span>        <span class="token punctuation">}</span>
+
+        String pattern <span class="token operator">=</span> sb<span class="token punctuation">.</span><span class="token function">toString<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring<span class="token punctuation">(</span></span>0<span class="token punctuation">,</span> sb<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pattern <span class="token operator">=</span> <span class="token string">"("</span> <span class="token operator">+</span> pattern <span class="token operator">+</span> <span class="token string">")*"</span><span class="token comment" spellcheck="true">;// (pattern)* means matching this pattern
+</span>                                       <span class="token comment" spellcheck="true"> // zero or more times
+</span>        Pattern p <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile<span class="token punctuation">(</span></span>pattern<span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// Pattern class has no public
+</span>                                               <span class="token comment" spellcheck="true"> // constructor and we must use
+</span>                                               <span class="token comment" spellcheck="true"> // its public static compilation
+</span>                                               <span class="token comment" spellcheck="true"> // method.
+</span>        Matcher m <span class="token operator">=</span> p<span class="token punctuation">.</span><span class="token function">matcher<span class="token punctuation">(</span></span><span class="token string">"goalspecial"</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// Just like pattern, and we can
+</span>                                               <span class="token comment" spellcheck="true"> // get matcher instance by
+</span>                                               <span class="token comment" spellcheck="true"> // invoking Pattern object's
+</span>                                               <span class="token comment" spellcheck="true"> // matcher() method.
+</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>m<span class="token punctuation">.</span><span class="token function">matches<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">{// try to match the whole area.
+</span>            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token string">"match"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+
+<p>To sum up, class Pattern and Matcher seem very useful to deal with strings. Extra time should be spent on the source code and also need to try applying it on usual practice.</p>
+
+<p><font size="5" ,="" color="blue">From <a href="https://vpn2.seu.edu.cn/2012/12/leetcode-solution-word-break/,DanaInfo=www.programcreek.com+">leetcode</a>.</font></p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "algorithm_wordBreakWithRegExp.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
