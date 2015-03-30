@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+Let's go to the topic directly!
+
+<span style="display:block; text-align:justify">**Quetion:** Remove invalid elements in a vector with all integer elements. These invalid elements are integers which are odd numbers.<br><br>
+<font size="5" color="red">Algorithm idea: </font> <font size="4" color="red">Traverse the vertor from both the start and the end. Find the first invalid element &lt;a&gt; from the start and find the first valid element &lt;b&gt; from the end, then change the value of &lt;a&gt; into the value of &lt;b&gt;.</font> </span>
+<br>
+Code talks:
+
+~~~~{java}
+
+package word_ladder;
+
+import java.util.Vector;
+
+public class DelElementInVector {
+
+	public static void main(String[] args) {
+
+		Vector<Integer> vector = new Vector<Integer>();// initialize a vector
+
+		/* add ten elements in the vector */
+		for (int i = 0; i < 100; i++) {
+			vector.add(i);
+		}
+
+		System.out.println("Before removing: ");
+		showVector(vector);// print the vector before removing these illegal
+							// elements
+
+		int start = 0;
+		int end = vector.size() - 1;
+		while (start < end) {
+			while (vector.get(start) % 2 == 0 && start < end) {
+				start++;
+			}
+
+			while (vector.get(end) % 2 != 0 && start < end) {
+				vector.remove(end);
+				end--;
+			}
+
+			vector.set(start, vector.get(end));
+			vector.remove(end--);
+		}
+
+		System.out.println("After removing: ");
+		showVector(vector);// print the vector after removing these illegal
+							// elements
+
+	}
+
+	/**
+	 * Print the elements in the vector
+	 * 
+	 * @param vector
+	 * @return
+	 * */
+	private static void showVector(Vector<Integer> vector) {
+		for (int i = 0; i < vector.size(); i++) {
+			System.out.println(vector.get(i));
+		}
+	}
+}
+
+~~~~
+
+Note: Performance should be took into consideration. You cannot just remove one by one because the size of vector is changeable.
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Let's go to the topic directly!</p>
+
+<p><span style="display:block; text-align:justify"><strong>Quetion:</strong> Remove invalid elements in a vector with all integer elements. These invalid elements are integers which are odd numbers.<br><br>
+<font size="5" color="red">Algorithm idea: </font> <font size="4" color="red">Traverse the vertor from both the start and the end. Find the first invalid element &lt;a&gt; from the start and find the first valid element &lt;b&gt; from the end, then change the value of &lt;a&gt; into the value of &lt;b&gt;.</font> </span>
+<br>
+Code talks:</p>
+
+<pre class=" language-java"><code class=" language-java">
+<span class="token keyword">package</span> word_ladder<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Vector<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DelElementInVector</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        Vector<span class="token operator">&lt;</span>Integer&gt; vector <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vector</span><span class="token operator">&lt;</span>Integer&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// initialize a vector
+</span>
+        <span class="token comment" spellcheck="true">/* add ten elements in the vector */</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span><span class="token number"> 100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            vector<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token string">"Before removing: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">showVector<span class="token punctuation">(</span></span>vector<span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// print the vector before removing these illegal
+</span>                           <span class="token comment" spellcheck="true"> // elements
+</span>
+        <span class="token keyword">int</span> start <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> end <span class="token operator">=</span> vector<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>vector<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>start<span class="token punctuation">)</span> <span class="token operator">%</span><span class="token number"> 2</span> <span class="token operator">==</span><span class="token number"> 0</span> <span class="token operator">&amp;&amp;</span> start <span class="token operator">&lt;</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                start<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>vector<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>end<span class="token punctuation">)</span> <span class="token operator">%</span><span class="token number"> 2</span> <span class="token operator">!</span><span class="token operator">=</span><span class="token number"> 0</span> <span class="token operator">&amp;&amp;</span> start <span class="token operator">&lt;</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                vector<span class="token punctuation">.</span><span class="token function">remove<span class="token punctuation">(</span></span>end<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                end<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            vector<span class="token punctuation">.</span><span class="token function">set<span class="token punctuation">(</span></span>start<span class="token punctuation">,</span> vector<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>end<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            vector<span class="token punctuation">.</span><span class="token function">remove<span class="token punctuation">(</span></span>end<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span><span class="token string">"After removing: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">showVector<span class="token punctuation">(</span></span>vector<span class="token punctuation">)</span><span class="token comment" spellcheck="true">;// print the vector after removing these illegal
+</span>                           <span class="token comment" spellcheck="true"> // elements
+</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Print the elements in the vector
+     * 
+     * @param vector
+     * @return
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">showVector<span class="token punctuation">(</span></span>Vector<span class="token operator">&lt;</span>Integer&gt; vector<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> vector<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span>vector<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+<p>Note: Performance should be took into consideration. You cannot just remove one by one because the size of vector is changeable.</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "collection_vector.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
