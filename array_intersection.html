@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+<font size="5">Question: Find the intersection of two integer arrays.</font>
+<hr></hr>
+<span style="display:block; text-align:justify">
+<font color="red"><b>Algorithm idea:</b> 
+<ul>
+①sort both array1 and array2, then use two pointers traverse array1 and array2 from the same side.<br></br>
+②Hash table. The complexity of method containsKey() is O(1).
+</ul>
+</font>
+</span>
+<font color="blue"><b>Show some code:</b></font>
+
+~~~~{java}
+
+package word_ladder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class ArrayIntersection {
+
+	public static void main(String[] args) {
+		int[] array1 = { 2, 3, 12, 1, 4, 222, 6, 8, 7, 333, 15 };
+		int[] array2 = { 3, 2, 33, 12, 9, 7, 333, 15 };
+
+		int[] intersection1 = ArrayIntersection.getIntersection(array1, array2);
+		int[] intersection2 = ArrayIntersection.getIntersectionByHashcode(
+				array1, array2);
+
+		System.out.print("First method: ");
+		for (int i : intersection1) {
+			System.out.print(i + " ");
+		}
+
+		System.out.print("\n\nSecond method: ");
+		for (int i : intersection2) {
+			System.out.print(i + " ");
+		}
+
+	}
+
+	/**
+	 * find the intersection of two integer arrays. algorithm idea: sort both
+	 * array1 and array2, then use two pointers traverse array1 and array2 from
+	 * the same side. time complexity: O(nLogn)
+	 * 
+	 * @param array1
+	 * @param array2
+	 * @return result
+	 * */
+	private static int[] getIntersection(int[] array1, int[] array2) {
+		List<Integer> intersection = new ArrayList<Integer>();
+
+		/* sort */
+		Arrays.sort(array1);
+		Arrays.sort(array2);
+
+		/* initialize two pointer */
+		int pointer1 = 0;
+		int pointer2 = 0;
+
+		/* traverse two arrays */
+		while (pointer1 < array1.length && pointer2 < array2.length) {
+
+			if (array1[pointer1] < array2[pointer2]) {
+				pointer1++;
+			} else if (array1[pointer1] == array2[pointer2]) {
+				intersection.add(array1[pointer1]);
+				if (pointer1 != array1.length - 1
+						&& pointer2 != array2.length - 1) {
+					pointer1++;
+					pointer2++;
+				} else {
+					break;
+				}
+			} else {
+				pointer2++;
+			}
+
+		}
+
+		/* transform the list into an array */
+		int[] result = new int[intersection.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = intersection.get(i);
+		}
+
+		return result;
+
+	}
+
+	/**
+	 * Algorithm idea: Hash table. The complexity of method containsKey() is
+	 * O(1). time complexity: O(n + m)
+	 * 
+	 * @param array1
+	 * @param array2
+	 * @return result
+	 * */
+	private static int[] getIntersectionByHashcode(int[] array1, int[] array2) {
+		Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+
+		for (Integer temp : array1) {
+			if (!map.containsKey(temp)) {
+				map.put(temp, false);
+			}
+		}
+
+		for (Integer temp : array2) {
+			if (map.containsKey(temp)) {
+				map.put(temp, true);
+			}
+		}
+
+		LinkedList<Integer> intersection = new LinkedList<Integer>();
+
+		for (Entry<Integer, Boolean> e : map.entrySet()) {
+			if (e.getValue().equals(Boolean.TRUE)) {
+				intersection.add(e.getKey());
+			}
+		}
+
+		/* transform the list into an array */
+		int[] result = new int[intersection.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = intersection.get(i);
+		}
+
+		return result;
+	}
+}
+
+
+~~~~
+
+<br>
+This is a typical question in the interview, and the second method is a better solution when encountering magnitude arrays.
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p><font size="5">Question: Find the intersection of two integer arrays.</font>
+</p><hr>
+<span style="display:block; text-align:justify">
+<font color="red"><b>Algorithm idea:</b> <p></p>
+
+<ul>
+①sort both array1 and array2, then use two pointers traverse array1 and array2 from the same side.<br><br>
+②Hash table. The complexity of method containsKey() is O(1).
+</ul>
+
+</font><p><font color="red"></font>
+
+<font color="blue"><b>Show some code:</b></font></p>
+
+<pre class=" language-java"><code class=" language-java">
+<span class="token keyword">package</span> word_ladder<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>LinkedList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">.</span>Entry<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ArrayIntersection</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number"> 2</span><span class="token punctuation">,</span><span class="token number"> 3</span><span class="token punctuation">,</span><span class="token number"> 12</span><span class="token punctuation">,</span><span class="token number"> 1</span><span class="token punctuation">,</span><span class="token number"> 4</span><span class="token punctuation">,</span><span class="token number"> 222</span><span class="token punctuation">,</span><span class="token number"> 6</span><span class="token punctuation">,</span><span class="token number"> 8</span><span class="token punctuation">,</span><span class="token number"> 7</span><span class="token punctuation">,</span><span class="token number"> 333</span><span class="token punctuation">,</span><span class="token number"> 15</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number"> 3</span><span class="token punctuation">,</span><span class="token number"> 2</span><span class="token punctuation">,</span><span class="token number"> 33</span><span class="token punctuation">,</span><span class="token number"> 12</span><span class="token punctuation">,</span><span class="token number"> 9</span><span class="token punctuation">,</span><span class="token number"> 7</span><span class="token punctuation">,</span><span class="token number"> 333</span><span class="token punctuation">,</span><span class="token number"> 15</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> intersection1 <span class="token operator">=</span> ArrayIntersection<span class="token punctuation">.</span><span class="token function">getIntersection<span class="token punctuation">(</span></span>array1<span class="token punctuation">,</span> array2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> intersection2 <span class="token operator">=</span> ArrayIntersection<span class="token punctuation">.</span><span class="token function">getIntersectionByHashcode<span class="token punctuation">(</span></span>
+                array1<span class="token punctuation">,</span> array2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print<span class="token punctuation">(</span></span><span class="token string">"First method: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">:</span> intersection1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print<span class="token punctuation">(</span></span>i <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print<span class="token punctuation">(</span></span><span class="token string">"\n\nSecond method: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">:</span> intersection2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print<span class="token punctuation">(</span></span>i <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * find the intersection of two integer arrays. algorithm idea: sort both
+     * array1 and array2, then use two pointers traverse array1 and array2 from
+     * the same side. time complexity: O(nLogn)
+     * 
+     * @param array1
+     * @param array2
+     * @return result
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getIntersection<span class="token punctuation">(</span></span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>Integer&gt; intersection <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>Integer&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">/* sort */</span>
+        Arrays<span class="token punctuation">.</span><span class="token function">sort<span class="token punctuation">(</span></span>array1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Arrays<span class="token punctuation">.</span><span class="token function">sort<span class="token punctuation">(</span></span>array2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">/* initialize two pointer */</span>
+        <span class="token keyword">int</span> pointer1 <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> pointer2 <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">/* traverse two arrays */</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>pointer1 <span class="token operator">&lt;</span> array1<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> pointer2 <span class="token operator">&lt;</span> array2<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>array1<span class="token punctuation">[</span>pointer1<span class="token punctuation">]</span> <span class="token operator">&lt;</span> array2<span class="token punctuation">[</span>pointer2<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                pointer1<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>array1<span class="token punctuation">[</span>pointer1<span class="token punctuation">]</span> <span class="token operator">==</span> array2<span class="token punctuation">[</span>pointer2<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                intersection<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>array1<span class="token punctuation">[</span>pointer1<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pointer1 <span class="token operator">!</span><span class="token operator">=</span> array1<span class="token punctuation">.</span>length <span class="token operator">-</span><span class="token number"> 1</span>
+                        <span class="token operator">&amp;&amp;</span> pointer2 <span class="token operator">!</span><span class="token operator">=</span> array2<span class="token punctuation">.</span>length <span class="token operator">-</span><span class="token number"> 1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    pointer1<span class="token operator">++</span><span class="token punctuation">;</span>
+                    pointer2<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                pointer2<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/* transform the list into an array */</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>intersection<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> result<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> intersection<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Algorithm idea: Hash table. The complexity of method containsKey() is
+     * O(1). time complexity: O(n + m)
+     * 
+     * @param array1
+     * @param array2
+     * @return result
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getIntersectionByHashcode<span class="token punctuation">(</span></span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array1<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Boolean&gt; map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Boolean&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer temp <span class="token operator">:</span> array1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>map<span class="token punctuation">.</span><span class="token function">containsKey<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put<span class="token punctuation">(</span></span>temp<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer temp <span class="token operator">:</span> array2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey<span class="token punctuation">(</span></span>temp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put<span class="token punctuation">(</span></span>temp<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        LinkedList<span class="token operator">&lt;</span>Integer&gt; intersection <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span>Integer&gt;<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Entry<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Boolean&gt; e <span class="token operator">:</span> map<span class="token punctuation">.</span><span class="token function">entrySet<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getValue<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>Boolean<span class="token punctuation">.</span>TRUE<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                intersection<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>e<span class="token punctuation">.</span><span class="token function">getKey<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/* transform the list into an array */</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>intersection<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> result<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> intersection<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+</code></pre>
+
+<p><br>
+This is a typical question in the interview, and the second method is a better solution when encountering magnitude arrays.</p></span>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "array_intersection.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
