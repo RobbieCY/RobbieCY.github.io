@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+<b>Qusetion: Given two strings, if they have same types of characters, and for each kind of character, they have the same number, then we call that the two strings are matched.<br />
+For example, "abbdcca" and "bdcaacbq" are matched.</b>
+
+
+<font color='red'; size=5>Algorithm idea: </font>
+<font color=red>Use a 256 length integer array to store the number of times of each character. Then traverse string1 and string2 from their first character, for string1, the flag of each type of character would do a plus-one operation and for string2, the flag would do a minus-one operation. And if the two strings are matched, the integer array will be an array with all 0 value elements.</font>
+
+<font color=blue>Code:</font> 
+
+
+~~~~{java}
+/**
+ * Given two strings, if they have same types of characters, 
+ * and for each kind of character, they have the same number, 
+ * then we call that the two strings are matched.
+ * For example, "abbdcca" and "bdcaacbq" are matched.
+ * */
+package string_handler;
+
+public class StringMatcher {
+
+	public static void main(String[] args) {
+		String s1 = "abbdcca213212!@@#@";
+		String s2 = "bdcaacb212312@@@#!";
+
+		System.out.println(StringMatcher.judgeMatch(s1, s2));
+
+	}
+
+	/**
+	 * Given two strings, judge whether they are matched.
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return true or false
+	 * */
+	private static boolean judgeMatch(String s1, String s2) {
+		if (null == s1 || null == s2) {
+			return false;
+		}
+
+		if (s1.equals(s2)) {
+			return true;
+		}
+
+		if (s1.length() != s2.length()) {
+			return false;
+		}
+
+		int[] flag = new int[256];
+		for (int i = 0; i < s1.length(); i++) {
+			char temp1 = s1.charAt(i);
+			char temp2 = s2.charAt(i);
+			flag[temp1]++;
+			flag[temp2]--;
+		}
+
+		for (int i = 0; i < flag.length; i++) {
+			if (flag[i] != 0) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+}
+
+
+~~~~
+
+
+A review is welcome!
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p><b>Qusetion: Given two strings, if they have same types of characters, and for each kind of character, they have the same number, then we call that the two strings are matched.<br>
+For example, "abbdcca" and "bdcaacbq" are matched.</b></p>
+
+<p><font color="red" ;="" size="5">Algorithm idea: </font>
+<font color="red">Use a 256 length integer array to store the number of times of each character. Then traverse string1 and string2 from their first character, for string1, the flag of each type of character would do a plus-one operation and for string2, the flag would do a minus-one operation. And if the two strings are matched, the integer array will be an array with all 0 value elements.</font></p>
+
+<p><font color="blue">Code:</font> </p>
+
+<pre class=" language-java"><code class=" language-java"><span class="token comment" spellcheck="true">/**
+ * Given two strings, if they have same types of characters, 
+ * and for each kind of character, they have the same number, 
+ * then we call that the two strings are matched.
+ * For example, "abbdcca" and "bdcaacbq" are matched.
+ * */</span>
+<span class="token keyword">package</span> string_handler<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringMatcher</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main<span class="token punctuation">(</span></span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String s1 <span class="token operator">=</span> <span class="token string">"abbdcca213212!@@#@"</span><span class="token punctuation">;</span>
+        String s2 <span class="token operator">=</span> <span class="token string">"bdcaacb212312@@@#!"</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println<span class="token punctuation">(</span></span>StringMatcher<span class="token punctuation">.</span><span class="token function">judgeMatch<span class="token punctuation">(</span></span>s1<span class="token punctuation">,</span> s2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Given two strings, judge whether they are matched.
+     * 
+     * @param s1
+     * @param s2
+     * @return true or false
+     * */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">judgeMatch<span class="token punctuation">(</span></span>String s1<span class="token punctuation">,</span> String s2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> s1 <span class="token operator">||</span> null <span class="token operator">==</span> s2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span>s2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">!</span><span class="token operator">=</span> s2<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> flag <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token number">[256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s1<span class="token punctuation">.</span><span class="token function">length<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> temp1 <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">charAt<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">char</span> temp2 <span class="token operator">=</span> s2<span class="token punctuation">.</span><span class="token function">charAt<span class="token punctuation">(</span></span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            flag<span class="token punctuation">[</span>temp1<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            flag<span class="token punctuation">[</span>temp2<span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> flag<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!</span><span class="token operator">=</span><span class="token number"> 0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+</code></pre>
+
+<p>A review is welcome!</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "stringHandler_1.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
